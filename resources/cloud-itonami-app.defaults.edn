@@ -318,7 +318,7 @@
    ;; catalog at request time; this only names what a fresh install would
    ;; try first.
    :default-model "meta-llama/Llama-3.3-70B-Instruct"
-   :context-window-tokens {"meta-llama/Llama-3.3-70B-Instruct" 131072}
+   :context-window-tokens {"meta-llama/Llama-3.3-70B-Instruct" 128000}
    :local? false
    ;; Shipped off and unreviewed, like every destination that leaves the
    ;; machine. An operator is consenting to the transcript going to io.net
