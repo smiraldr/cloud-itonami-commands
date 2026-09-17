@@ -307,6 +307,26 @@
    :local? false
    :reviewed? false
    :enabled? false}
+  {:id "ionet"
+   :name "IO Intelligence (io.net)"
+   :kind :openai-compatible
+   :base-url "https://api.intelligence.io.solutions/api/v1"
+   :api-key-env "IONET_API_KEY"
+   ;; An example default, not a promise. io.net's ids are Hugging Face-style
+   ;; org/name and the live set is whatever GET /models answers on the day,
+   ;; so a pinned id would go stale quietly. The Bot model picker reads the
+   ;; catalog at request time; this only names what a fresh install would
+   ;; try first.
+   :default-model "meta-llama/Llama-3.3-70B-Instruct"
+   :context-window-tokens {"meta-llama/Llama-3.3-70B-Instruct" 131072}
+   :local? false
+   ;; Shipped off and unreviewed, like every destination that leaves the
+   ;; machine. An operator is consenting to the transcript going to io.net
+   ;; and to whichever organisation serves the named model there. Export
+   ;; IONET_API_KEY and review this exact destination before it appears in
+   ;; the Bot picker.
+   :reviewed? false
+   :enabled? false}
   {:id "openrouter"
    :name "OpenRouter (free plan)"
    :kind :openai-compatible
