@@ -1,0 +1,46 @@
+[{:db/id -1
+  :adr/id "adr-2609180515-io-intelligence-is-a-provider-default-not-a-reviewed-egress"
+  :adr/title "IO Intelligence (io.net) is a catalogued provider default, not a reviewed egress"
+  :adr/status "accepted"
+  :adr/date "2026-09-18"
+  :adr/related "adr-2609151200-the-contract-is-one-repository"
+  :adr/body "## What was asked
+
+Add IO Intelligence (io.net) to the provider defaults.
+
+## What was measured
+
+io.net serves an OpenAI-compatible chat completions endpoint only:
+POST {base-url}/chat/completions and GET {base-url}/models, Bearer
+auth from an env var the record names. Its public model list
+(2026-09-18) holds 35 Hugging Face-style org/name ids;
+`meta-llama/Llama-3.3-70B-Instruct` answers `context_window` 128000
+and `supports_tools` true. The model card's 131072 is not what the
+endpoint reports; the record carries the endpoint's own number,
+because `model-context-window` prefers the catalog entry over live
+discovery, and an unmeasured window that looks measured is the
+failure mode the catalog's comments already name.
+
+## Decision
+
+One record, id `ionet`, kind `:openai-compatible`, base URL
+`https://api.intelligence.io.solutions/api/v1`, credential env
+`IONET_API_KEY`, default model `meta-llama/Llama-3.3-70B-Instruct`
+with the served 128000 window. It ships `:reviewed? false` and
+`:enabled? false`, the same terms as every other destination that
+leaves the machine: nothing changes for an existing install until an
+operator overlays the record by id in `data/config.edn` and turns the
+deployment's `:routing :cloud-enabled?` on. No other surface moves:
+the Bot picker renders `provider.name`, and the app's `.env.example`
+stays as it was for the xai and openrouter additions.
+
+## What this is not
+
+Not a review of io.net. `:reviewed?` is operator-asserted trust, and
+a catalog record cannot express per-provider request options: the
+adapter attaches `tool_choice` only to forced-tool turns, so an
+optional-tool turn against io.net relies on that endpoint's own
+default for a missing `tool_choice`. The gap is recorded with io.net
+and is closed app-side if it matters, not here. Consumers advance
+their pins to pick the record up; a stale pin is the ordinary
+dependency state."}]
