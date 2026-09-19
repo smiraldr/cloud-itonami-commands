@@ -57,3 +57,15 @@
     (is (pos-int? (get-in d [:server :port])))
     (is (= (count (:providers d))
            (count (distinct (map :id (:providers d))))))))
+
+(deftest ionet-ships-as-an-explicitly-reviewed-opt-in
+  (let [ionet (some #(when (= "ionet" (:id %)) %)
+                    (:providers (edn/read-string (table "cloud-itonami-app.defaults.edn"))))]
+    (is (some? ionet) "the ionet record is in the shipped catalog")
+    (is (= :openai-compatible (:kind ionet)))
+    (is (= "https://api.intelligence.io.solutions/api/v1" (:base-url ionet)))
+    (is (= "IONET_API_KEY" (:api-key-env ionet)))
+    (is (= "meta-llama/Llama-3.3-70B-Instruct" (:default-model ionet)))
+    (is (false? (:enabled? ionet)))
+    (is (false? (:reviewed? ionet)))
+    (is (not (contains? ionet :api-key)))))
