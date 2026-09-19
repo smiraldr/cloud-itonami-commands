@@ -63,9 +63,13 @@
                     (:providers (edn/read-string (table "cloud-itonami-app.defaults.edn"))))]
     (is (some? ionet) "the ionet record is in the shipped catalog")
     (is (= :openai-compatible (:kind ionet)))
+    (is (= "IO Intelligence (io.net)" (:name ionet)))
     (is (= "https://api.intelligence.io.solutions/api/v1" (:base-url ionet)))
     (is (= "IONET_API_KEY" (:api-key-env ionet)))
     (is (= "meta-llama/Llama-3.3-70B-Instruct" (:default-model ionet)))
+    (is (= 128000 (get-in ionet [:context-window-tokens
+                                 "meta-llama/Llama-3.3-70B-Instruct"])))
+    (is (false? (:local? ionet)))
     (is (false? (:enabled? ionet)))
     (is (false? (:reviewed? ionet)))
     (is (not (contains? ionet :api-key)))))
