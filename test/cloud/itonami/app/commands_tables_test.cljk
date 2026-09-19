@@ -54,7 +54,10 @@
   (let [d (edn/read-string (table "cloud-itonami-app.defaults.edn"))]
     (is (map? d))
     (is (string? (get-in d [:server :host])))
-    (is (pos-int? (get-in d [:server :port])))
+    (is (pos-int? (get-in d [:server :port])))))
+
+(deftest provider-ids-are-unique-in-the-shipped-catalog
+  (let [d (edn/read-string (table "cloud-itonami-app.defaults.edn"))]
     (is (= (count (:providers d))
            (count (distinct (map :id (:providers d))))))))
 
