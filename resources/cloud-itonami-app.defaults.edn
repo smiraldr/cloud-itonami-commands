@@ -316,7 +316,7 @@
    ;; org/name and the live set is whatever GET /models answers on the day,
    ;; so a pinned id would go stale quietly. The Bot picker re-reads this
    ;; catalog record (:default-model and :models), not io.net's live list;
-   ;; the live set surfaces through the composer's /api/models route. This
+   ;; the live set surfaces through the composer's /v1/models route. This
    ;; only names what a fresh install would try first.
    :default-model "meta-llama/Llama-3.3-70B-Instruct"
    :context-window-tokens {"meta-llama/Llama-3.3-70B-Instruct" 128000}
